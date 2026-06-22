@@ -1,29 +1,18 @@
 import "./TodoContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoContext from "./TodoContext";
 import { SubHeading } from "../SubHeading";
 
+const TODOS = "todos";
+
 export function TodoProvider({ children }) {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      description: "JSX e componentes",
-      completed: false,
-      createdAt: "2022-10-31",
-    },
-    {
-      id: 2,
-      description: "Props, state e hooks",
-      completed: false,
-      createdAt: "2022-10-31",
-    },
-    {
-      id: 3,
-      description: "Ciclo de vida dos componentes",
-      completed: true,
-      createdAt: "2022-10-31",
-    },
-  ]);
+  const savedTodo = localStorage.getItem(TODOS);
+
+  const [todos, setTodos] = useState(savedTodo ? JSON.parse(savedTodo) : []);
+
+  useEffect(() => {
+    localStorage.setItem(TODOS, JSON.stringify(todos));
+  }, [todos]);
 
   const completed = todos.filter((t) => t.completed);
 

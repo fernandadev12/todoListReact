@@ -1,4 +1,23 @@
 ::backdrop {
-  background-color: #000;
-  opacity: 0.75;
+  background-color: #504d4d;
+  opacity: 0.85;
+}
+
+.dialog {
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  border: none;
+  padding: 16px;
+}
+
+.btn-close-wrapper {
+  text-align: right;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  transform: rotate(45deg);
 }

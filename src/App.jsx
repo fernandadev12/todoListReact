@@ -112,6 +112,12 @@ function App() {
     });
   };
 
+  const removeTodo = (todo) => {
+    setTodos((prevState) => {
+      return prevState.filter((t) => t.id !== todo.id);
+    });
+  };
+
   return (
     <main>
       <Container>
@@ -132,6 +138,7 @@ function App() {
                     key={t.id}
                     item={t}
                     onToggleCompleted={toogleTodoCompleted}
+                    onDeleteTodo={removeTodo}
                   />
                 );
               })}
@@ -144,6 +151,7 @@ function App() {
                   key={t.id}
                   item={t}
                   onToggleCompleted={toogleTodoCompleted}
+                  onDeleteTodo={removeTodo}
                 />
               );
             })}

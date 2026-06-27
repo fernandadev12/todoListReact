@@ -2,6 +2,11 @@ import "./TodoContext";
 import { useEffect, useState } from "react";
 import TodoContext from "./TodoContext";
 import { SubHeading } from "../SubHeading";
+import { ToDoForm } from "../ToDoForm";
+import { Button } from "../Button";
+import { IconPlus } from "../icons";
+import { use } from "react";
+import { Dialog } from "../Dialog";
 
 const TODOS = "todos";
 
@@ -9,6 +14,20 @@ export function TodoProvider({ children }) {
   const savedTodo = localStorage.getItem(TODOS);
 
   const [todos, setTodos] = useState(savedTodo ? JSON.parse(savedTodo) : []);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState();
+
+  const openFormTodoDialog = (todo) => {
+    if (todo) {
+      setSelectedTodo(todo);
+    }
+    setShowDialog(true);
+  };
+
+  const closeFormTodoDialog = () => {
+    setShowDialog(false);
+    setSelectedTodo(null);
+  };
 
   useEffect(() => {
     localStorage.setItem(TODOS, JSON.stringify(todos));
@@ -51,7 +70,17 @@ export function TodoProvider({ children }) {
 
   return (
     <TodoContext
-      value={{ todos, completed, addTodo, toogleTodoCompleted, removeTodo }}
+      value={{
+        todos,
+        completed,
+        addTodo,
+        toogleTodoCompleted,
+        removeTodo,
+        showDialog,
+        openFormTodoDialog,
+        closeFormTodoDialog,
+        selectedTodo,
+      }}
     >
       {children}
     </TodoContext>
